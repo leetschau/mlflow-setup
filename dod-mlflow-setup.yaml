@@ -1,0 +1,22 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - git
+  - curl
+  - make
+  - ca-certificates
+  - net-tools
+
+runcmd:
+  - echo 'Provision commands start ...' > /tmp/provision.log
+  - git clone https://github.com/leetschau/mlflow-setup.git ~/mlflow-setup
+  - echo 'Git clone over.' >> /tmp/provision.log
+  - cd ~/mlflow-setup && cp docker/.env.example docker/.env && make install
+  - echo 'Install docker images and build mlflow image over.' >> /tmp/provision.log
+  - ufw allow 5001
+  - ufw allow 9001
+  - cd ~/mlflow-setup && make test
+

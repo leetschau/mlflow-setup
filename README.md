@@ -24,3 +24,16 @@ If everything is setup properly, you should be able to access the services at th
 - MinIO Console UI: [http://localhost:9001](http://localhost:9001)
 
 ![Screenshots](./docs/img/minio_mlflow_screenshot.png)
+
+## Provision Server as DigitalOcean Droplet
+
+Run the following command to get the public IP of the droplet:
+```fish
+doctl compute droplet create mlflow --region sgp1 --image docker-20-04 --size s-2vcpu-2gb --ssh-keys 52609419 --user-data-file dod-mlflow-setup.yaml --wait
+```
+
+Add a SSH alias *dod* in SSH config file with above public IP.
+Monitor the running status of the commands defined in dod-mlflow-setup.yaml with:
+`ssh dod 'tail -f /var/log/cloud-init-output.log'`.
+
+After the provision finishes successfully, access the Mlflow server at: `http://<public-ip>:5001`.

@@ -59,6 +59,8 @@ services:
       --host 0.0.0.0
       --serve-artifacts
       --artifacts-destination s3://mlflow
+      --allowed-hosts '*'
+      --cors-allowed-origins '*'
     depends_on:
       - postgres
       - minio-setup
