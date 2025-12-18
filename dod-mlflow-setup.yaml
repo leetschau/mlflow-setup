@@ -16,4 +16,4 @@ runcmd:
   - ufw allow 5001
   - ufw allow 9001
   - git clone https://github.com/leetschau/mlflow-setup.git /mlflow-setup
-  - cd /mlflow-setup && cp docker/.env.example docker/.env && make install && make test
+  - cd /mlflow-setup && cp docker/.env.example docker/.env && make all

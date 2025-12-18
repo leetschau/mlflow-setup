@@ -1,5 +1,6 @@
-DOCKER_DIR=docker
-COMPOSE_FILE=$(DOCKER_DIR)/docker-compose.yml
+SHELL := /bin/bash
+DOCKER_DIR = docker
+COMPOSE_FILE = $(DOCKER_DIR)/docker-compose.yml
 
 install:
 	docker compose \
@@ -8,13 +9,11 @@ install:
 		up --detach
 
 test:
-	python3 -m venv .venv && source .venv/bin/activate
-	pip install -r tests/requirements.txt
-	python3 tests/test_mlflow.py
+	python3 -m venv tests/.venv
+	(source tests/.venv/bin/activate && pip install -r tests/requirements.txt && python3 tests/test_mlflow.py)
 
 clean:
-	(cd docker/; docker compose down; cd ..;)
-
-	rm -rf .venv
+	(cd docker/ && docker compose down)
+	rm -rf tests/.venv
 
 all: install test
