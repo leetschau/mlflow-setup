@@ -1,3 +1,2 @@
-mlflow==2.11.0
-scikit-learn==1.4.0
-numpy==1.26.4
+mlflow
+scikit-learn

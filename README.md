@@ -33,7 +33,10 @@ doctl compute droplet create mlflow --region sgp1 --image docker-20-04 --size s-
 ```
 
 Add a SSH alias *dod* in SSH config file with above public IP.
-Monitor the running status of the commands defined in dod-mlflow-setup.yaml with:
-`ssh dod 'tail -f /var/log/cloud-init-output.log'`.
+Monitor the progress of the execution of dod-mlflow-setup.yaml with:
+`ssh dod tail -f /var/log/cloud-init-output.log`.
 
 After the provision finishes successfully, access the Mlflow server at: `http://<public-ip>:5001`.
+
+Note: do NOT use `~` or `$HOME` in provision script (here it is dod-mlflow-setup.yaml).
+I found they can be parsed correctly.
